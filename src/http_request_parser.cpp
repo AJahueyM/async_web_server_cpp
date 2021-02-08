@@ -21,6 +21,7 @@ void HttpRequestParser::reset()
 
 boost::tribool HttpRequestParser::consume(HttpRequest& req, char input)
 {
+
     switch (state_)
     {
         case method_start:
