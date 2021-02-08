@@ -2,7 +2,7 @@
 
 #include <boost/bind.hpp>
 #include <boost/make_shared.hpp>
-
+#include <boost/algorithm/string.hpp>
 namespace async_web_server_cpp
 {
 
@@ -29,6 +29,10 @@ void HttpConnection::handle_read(const char* begin, const char* end)
     boost::tribool result;
     const char* parse_end;
     boost::tie(result, parse_end) = request_parser_.parse(request_, begin, end);
+
+    if(request_.uri.find("%2F") != std::string::npos){
+        boost::replace_all(request_.uri, "%2F", "/");
+    }
 
     if (result)
     {
